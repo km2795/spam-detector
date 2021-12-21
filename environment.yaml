@@ -1,0 +1,8 @@
+name: spam-detector
+channels:
+ - anaconda
+
+dependencies:
+ - numpy
+ - scikit-learn
+ - tensorflow

@@ -1,0 +1,36 @@
+from decouple import config
+
+import dataset_parser as dataset_parser
+import spam_detector_train as sd_train
+import spam_detector_test as sd_test
+
+MAIN_DIR = config("MAIN_DIR")
+
+# Model storage directory.
+MODEL_DUMP_DIRECTORY = MAIN_DIR + "/spam-detector/spam_detector_model_dump_dir"
+
+
+print("Preparing dataset...\n\n")
+
+# Prepare the dataset.
+( train_set_input,
+  train_set_output,
+  test_set_input,
+  test_set_output ) = dataset_parser.process_dataset()
+
+# Input layer size for the sequential model.
+model_input_size = len(train_set_input[0])
+
+
+print("\n\nTraining model...\n\n")
+
+# Train the model.
+model = sd_train.train_model(model_input_size, train_set_input, train_set_output, MODEL_DUMP_DIRECTORY)
+
+print("\n\nTesting model...\n\n")
+
+# Test the model. Mean error will be returned.
+mse = sd_test.test_model(test_set_input, test_set_output, MODEL_DUMP_DIRECTORY)
+
+# How the model performed.
+print("Error: " + str(mse))

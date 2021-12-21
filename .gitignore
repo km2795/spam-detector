@@ -1,0 +1,11 @@
+# Model storage directory.
+spam_detector_model_dump_dir
+
+# Temporary file to store dataset.
+vectorized_dataset.csv
+
+# Datasets storage directory.
+dataset/
+
+
+__pycache__
