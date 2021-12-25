@@ -8,11 +8,15 @@
 
 ## Dependencies
 
-- python 3 or above
-- Anaconda (conda)
+> Some important dependencies are listed here.
+
+- python 3.7 or above
+- Conda [Anaconda/Miniconda]
 - Numpy
 - Scikit-learn
-- Keras (TensorFlow)
+- Keras
+- NLTK (Natural Language Toolkit)
+- TensorFlow
 
 ### <i>Note: This has not been tested, just an example. Will be further developed.</i>
 
@@ -39,17 +43,30 @@ git checkout master
 ## 4. Install the project.
 
 ```bash
-conda env create -f environment.yaml
+conda env create -f environment.yml
 ```
 
-## 5. Download and setup the datasets.
+## 5. Activate the environment.
+
+```bash
+conda activate spam-detector
+```
+
+## 6. Run Poetry (dependency manager) to install packages.
+> Make sure you have 'Poetry' installed on your system.
+
+```bash
+poetry install
+```
+
+## 7. Download and setup the datasets.
 
 ```bash
 # Run it ONLY from the top level directory of the project.
 sh setup_dataset.sh
 ```
 
-## 6. Run the project.
+## 8. Run the project.
 
 ```bash
 python3 ./spam-detector/spam_detector.py
