@@ -90,12 +90,12 @@ def process_dataset():
 
   # Concatenate the spam and not spam into training set.
   train_set = np.concatenate((spam_train_set, not_spam_train_set))
-  train_set_input = train_set[:, 0:200]
-  train_set_output = train_set[:, 200]
+  train_set_input = train_set[:, 0:(train_set.shape[1] - 1)]
+  train_set_output = train_set[:, (train_set.shape[1] - 1)]
 
   # Concatenate the spam and not spam into test set.
   test_set = np.concatenate((spam_test_set, not_spam_test_set))
-  test_set_input = test_set[:, 0:200]
-  test_set_output = test_set[:, 200]
+  test_set_input = test_set[:, 0:(test_set.shape[1] - 1)]
+  test_set_output = test_set[:, (test_set.shape[1] - 1)]
 
   return train_set_input, train_set_output, test_set_input, test_set_output
