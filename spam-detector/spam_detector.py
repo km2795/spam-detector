@@ -25,12 +25,10 @@ model_input_size = len(train_set_input[0])
 print("\n\nTraining model...\n\n")
 
 # Train the model.
-model = sd_train.train_model(model_input_size, train_set_input, train_set_output, MODEL_DUMP_DIRECTORY)
+model_accuracy = sd_train.train_model(model_input_size, train_set_input,
+  train_set_output, test_set_input, test_set_output, MODEL_DUMP_DIRECTORY)
 
 print("\n\nTesting model...\n\n")
 
-# Test the model. Mean error will be returned.
-mse = sd_test.test_model(test_set_input, test_set_output, MODEL_DUMP_DIRECTORY)
-
 # How the model performed.
-print("Error: " + str(mse))
+print("\n\nModel Accuracy: ", model_accuracy, "\n\n")
