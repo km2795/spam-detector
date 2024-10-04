@@ -52,21 +52,14 @@ conda env create -f environment.yml
 conda activate spam-detector
 ```
 
-## 6. Run Poetry (dependency manager) to install packages.
-> Make sure you have 'Poetry' installed on your system.
-
-```bash
-poetry install
-```
-
-## 7. Download and setup the datasets.
+## 6. Download and setup the datasets.
 
 ```bash
 # Run it ONLY from the top level directory of the project.
 sh setup_dataset.sh
 ```
 
-## 8. Run the project.
+## 7. Run the project.
 
 ```bash
 python3 ./spam-detector/spam_detector.py
