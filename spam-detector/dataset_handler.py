@@ -18,11 +18,13 @@ def get_dataset_map():
   # Traverse the sub-directories.
   for dir in directories:
     if (dir == "spam" or dir == "spam_2"):
+      # Flag for spam directory.
       mark_spam = True
     else:
+      # Flag for non spam directory.
       mark_spam = False
 
-    # Load file list from the directory.
+    # Load file list from above separated directories.
     files = os.listdir(DATASET_DIR + dir)
     dir_name = DATASET_DIR + dir + "/"
 
