@@ -27,10 +27,10 @@ def process_dataset():
 
   # Split the train and test in 70:30 ratio.
   spam_train_size = int(0.7 * len(spam_data))
-  spam_test_size = len(spam_data) - spam_train_size
+  spam_test_size = spam_data_size - spam_train_size
 
   not_spam_train_size = int(0.7 * len(not_spam_data))
-  not_spam_test_size = len(not_spam_data) - not_spam_train_size
+  not_spam_test_size = not_spam_data_size - not_spam_train_size
 
   """
 
