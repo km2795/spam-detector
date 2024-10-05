@@ -19,10 +19,10 @@ def get_dataset_map():
   for dir in directories:
     if (dir == "spam" or dir == "spam_2"):
       # Flag for spam directory.
-      mark_spam = True
+      mark_spam = "spam"
     else:
       # Flag for non spam directory.
-      mark_spam = False
+      mark_spam = "not_spam"
 
     # Load file list from above separated directories.
     files = os.listdir(DATASET_DIR + dir)
@@ -30,9 +30,6 @@ def get_dataset_map():
 
     # For every file in the directory.
     for file in files:
-      if mark_spam:
-        dataset_map["spam"].append(dir_name + file)
-      else:
-        dataset_map["not_spam"].append(dir_name + file)
+      dataset_map[mark_spam].append(dir_name + file)
 
   return dataset_map
