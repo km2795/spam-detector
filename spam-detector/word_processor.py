@@ -28,8 +28,8 @@ def process_word(stem, lemma, words, delim):
 
   # Perform both consecutively.
   else:
-    do_stem = [stemmer.stem(item) for o in words]
-    do_lemma = [lemmatizer.lemmatize(o) for item in do_stem]
+    do_stem = [stemmer.stem(o) for o in words]
+    do_lemma = [lemmatizer.lemmatize(item) for item in do_stem]
     processed_words = do_lemma
 
   # Return as a string if received as a string.
