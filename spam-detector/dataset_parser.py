@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from sklearn.feature_extraction.text import HashingVectorizer
 from decouple import config
 
@@ -8,17 +9,21 @@ import dataset_handler as ds_handler
 
 MAIN_DIR = config("MAIN_DIR")
 
+# Path to the dataset (processed dataset) file.
+DATASET_FILE = MAIN_DIR + "/spam-detector/vectorized_dataset.csv"
+
 
 # Load the file data and prepare for vectorization,
 # finally organize the dataset into training and test set.
 def process_dataset():
-
+  
+  # Variable to hold the dataset.
+  dataset = []
+  
+  """ 
+  Overall schema of the dataset.
   """
-
-  Dataset info.
-
-  """
-
+  # This will read the directory structure of the dataset directory to form the dataset structure.
   spam_data, not_spam_data = ds_handler.get_dataset_map().values()
   vectorized_spam_data, vectorized_not_spam_data = [], []
 
@@ -31,52 +36,52 @@ def process_dataset():
 
   not_spam_train_size = int(0.7 * len(not_spam_data))
   not_spam_test_size = not_spam_data_size - not_spam_train_size
+  
+  # Check if the dataset file exists.
+  if os.path.exists(DATASET_FILE):
+    # Load the dataset for separation.
+    dataset = np.loadtxt(DATASET_FILE, delimiter=",")
+
+  # Process the dataset.
+  else:
+    """
+    Read each file and vectorize the content, finally stuff the vectors inside arrays.
+    """
+
+    # Hashing Vectorizer; 'feature size' may change later (set arbitrarily).
+    vectorizer = HashingVectorizer(n_features=200)
+
+    # Read the spam data from file --> vectorize it --> load in array.
+    for spam_train in range(spam_data_size):
+      with open(spam_data[spam_train], "rt", encoding="ISO-8859-1") as fh:
+        text = ""
+        for row in fh:
+          # Process the data.
+          text += wp.process_word(False, True, row, "\n")
+
+        # Encode the data.
+        vectorized_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [1]))
+
+    # Read the not spam data from file --> vectorize it --> load in array.
+    for not_spam_train in range(not_spam_data_size):
+      with open(not_spam_data[not_spam_train], "rt", encoding="ISO-8859-1") as fh:
+        text = ""
+        for row in fh:
+          # Process the data.
+          text += wp.process_word(False, True, row, "\n")
+
+        # Encode the data.
+        vectorized_not_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [0]))
+
+    # Merge the two vector set.
+    vectorized_spam_data.extend(vectorized_not_spam_data)
+
+    # Save the dataset in a file.
+    np.savetxt(DATASET_FILE, vectorized_spam_data, delimiter=",")
+    dataset = vectorized_spam_data
 
   """
-
-  Read each file and vectorize the content, finally stuff the vectors inside arrays.
-
-  """
-
-  # Hashing Vectorizer; 'feature size' may change later (set arbitrarily).
-  vectorizer = HashingVectorizer(n_features=200)
-
-  # Read the spam data from file --> vectorize it --> load in array.
-  for spam_train in range(spam_data_size):
-    with open(spam_data[spam_train], "rt", encoding="ISO-8859-1") as fh:
-      text = ""
-      for row in fh:
-        # Process the data.
-        text += wp.process_word(False, True, row, "\n")
-
-      # Encode the data.
-      vectorized_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [1]))
-
-  # Read the not spam data from file --> vectorize it --> load in array.
-  for not_spam_train in range(not_spam_data_size):
-    with open(not_spam_data[not_spam_train], "rt", encoding="ISO-8859-1") as fh:
-      text = ""
-      for row in fh:
-        # Process the data.
-        text += wp.process_word(False, True, row, "\n")
-
-      # Encode the data.
-      vectorized_not_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [0]))
-
-  # Merge the two vector set.
-  vectorized_spam_data.extend(vectorized_not_spam_data)
-
-  # Save the dataset in a file, for easier separation (fix this later).
-  np.savetxt(MAIN_DIR + "/spam-detector/vectorized_dataset.csv", vectorized_spam_data, delimiter=",")
-
-  # Load the dataset for separation.
-  dataset = np.loadtxt(MAIN_DIR + "/spam-detector/vectorized_dataset.csv", delimiter=",")
-
-
-  """
-
   Separate the training and test data.
-
   """
   # Spam train and test set.
   spam_set = dataset[0:(spam_data_size)]
