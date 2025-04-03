@@ -18,19 +18,15 @@ def process_word(stem, lemma, words, delim):
     words = words.split(delim)
     str_flag = True
 
-  # Perform word stemming.
-  if stem:
-    processed_words = [stemmer.stem(item) for item in words]
-
-  # Perform word lemmatization.
-  elif lemma:
-    processed_words= [lemmatizer.lemmatize(item) for item in words]
-
-  # Perform both consecutively.
-  else:
+  # Perform word stemming and lemmatization together.
+  if stem and lemma:
     do_stem = [stemmer.stem(o) for o in words]
     do_lemma = [lemmatizer.lemmatize(item) for item in do_stem]
     processed_words = do_lemma
+  
+  # Perform either stemming or lemmatization only.
+  else:
+    processed_words = [stemmer.stem(item) for item in words] if stem else [lemmatizer.lemmatize(item) for item in words]
 
   # Return as a string if received as a string.
   return " ".join(processed_words) if str_flag else processed_words
