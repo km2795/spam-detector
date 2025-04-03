@@ -47,7 +47,7 @@ def process_dataset():
       text = ""
       for row in fh:
         # Process the data.
-        text += wp.process_word(True, True, row, "\n")
+        text += wp.process_word(False, True, row, "\n")
 
       # Encode the data.
       vectorized_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [1]))
@@ -58,7 +58,7 @@ def process_dataset():
       text = ""
       for row in fh:
         # Process the data.
-        text += wp.process_word(True, True, row, "\n")
+        text += wp.process_word(False, True, row, "\n")
 
       # Encode the data.
       vectorized_not_spam_data.append(np.append(vectorizer.transform([text]).toarray(), [0]))
