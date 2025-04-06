@@ -2,7 +2,7 @@ import os
 from decouple import config
 
 # Main/Parent dataset directory.
-DATASET_DIR = config("MAIN_DIR") + "spam-detector/dataset/"
+DATASET_DIR = config("MAIN_DIR") + config("DATASET_DIR")
 
 def get_dataset_map():
 

@@ -13,13 +13,11 @@ import dataset_parser as dataset_parser
 import spam_detector_train as sd_train
 import spam_detector_test as sd_test
 
+# Main directory for the project.
 MAIN_DIR = config("MAIN_DIR")
 
 # Model storage directory.
-MODEL_DUMP_DIRECTORY = MAIN_DIR + "/spam-detector/spam_detector_model_dump_dir"
-
-
-print("\n\nPreparing dataset...\n\n")
+MODEL_DUMP_DIRECTORY = MAIN_DIR + config("MODEL_DUMP_DIRECTORY")
 
 # Prepare the dataset.
 ( train_set_input,

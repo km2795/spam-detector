@@ -10,7 +10,7 @@ import dataset_handler as ds_handler
 MAIN_DIR = config("MAIN_DIR")
 
 # Path to the dataset (processed dataset) file.
-DATASET_FILE = MAIN_DIR + "/spam-detector/vectorized_dataset.csv"
+DATASET_FILE = MAIN_DIR + config("DATASET_FILE")
 
 
 # Load the file data and prepare for vectorization,
@@ -47,6 +47,8 @@ def process_dataset():
     """
     Read each file and vectorize the content, finally stuff the vectors inside arrays.
     """
+    
+    print("\n\nPreparing dataset...\n\n")
 
     # Hashing Vectorizer; 'feature size' may change later (set arbitrarily).
     vectorizer = HashingVectorizer(n_features=200)
