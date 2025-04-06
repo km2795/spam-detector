@@ -62,7 +62,15 @@ sh setup_dataset.sh
 ## 7. Run the project.
 
 ```bash
+# To train and test the model on dataset.
 python3 ./spam-detector/spam_detector.py
+```
+
+or
+
+```bash
+# To test the model (once the model is trained and stored) on custom data.
+python3 ./spam-detector/main.py --data-size 1 --files test_file.txt
 ```
 
 # Dataset
